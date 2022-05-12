@@ -1,7 +1,11 @@
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
-	import Logo from '$lib/Logo.svelte';
 	import { browser } from '$app/env';
+	import { STATE, SIDE } from "../lib/utils/Utils"
+
+	import Line from "../lib/Line.svelte"
+	import Sidebar from "../lib/Sidebar.svelte"
+	import Editor from "../lib/Editor.svelte"
+
 
 	let desktop: string;
 
@@ -13,33 +17,31 @@
 	}
 
 	const agent = window.electron ? 'Electron' : 'Browser';
+
+	let lines : string[] = [
+		"This is the first line", 
+		"This is being used to simulate a basic design", 
+		"", 
+		"this is line four",
+		"This is going to be a really long line to test what happens when the text goes off the screen.. Did I choose the right styles for what I need??? We have to make this line long enough to go offscreen to find out".repeat(2)
+	]
 </script>
 
-<main class="text-center my-0 mx-auto pt-[2em] px-[1em] pb-[1em]">
-	<Logo />
+<!-- <svelte:window on:keydown="{e => console.log(e)}"/> -->
 
-	<h1>Hello {agent}!</h1>
+<main class="text-center">
 
-	<Counter id="0" {agent} />
+	<div class="flex float-left h-screen">
 
-	{#if desktop}
-		<br />
-		<br />
-		{desktop}
-	{/if}
+		{#if STATE.sidebar.side == SIDE.LEFT}
+			<Sidebar/>
+		{/if}
+
+		<Editor lines={lines}/>
+
+		{#if STATE.sidebar.side == SIDE.RIGHT}
+			<Sidebar/>
+		{/if}
+	</div>
+
 </main>
-
-<style>
-	main {
-		/* animation: fade 1s; */
-	}
-
-	/* @keyframes fade {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	} */
-</style>
