@@ -1,16 +1,8 @@
-export {
-    SIDE, 
-    STATE
-}
+// ./src/lib/utils/Utils.ts
 
-const SIDE = {
-    LEFT:  1,
-    RIGHT: 2
-}
+export { SIDE }
 
-let STATE = {
-    sidebar: {
-        enabled: true,
-        side: SIDE.LEFT
-    }
+/** Constant enumeration for Sidebar position on screen */
+enum SIDE {
+    LEFT, RIGHT
 }
